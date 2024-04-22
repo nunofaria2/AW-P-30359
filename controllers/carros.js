@@ -2,15 +2,26 @@ const fs = require('fs');
 
 //devolve todos os carros
 exports.getAll = async (req, res) => {
-    return res.send("ok");
+    //ler o ficheiro local
+    const datajson = fs.readFileSync("data/local/data.json", "utf-8");
+    //parse do json
+    const data = JSON.parse(datajson);
+    //devolver os carros
+    return res.send(data.carros);
 }
 
 //devolve o carro com o id
 exports.getById = async (req, res) => {
     //obter o id do carro
     const id = req.params.id;
-    //just return same id
-    return res.send(id);
+    //ler o ficheiro local
+    const datajson = fs.readFileSync("data/local/data.json", "utf-8");
+    //parse do json
+    const data = JSON.parse(datajson);
+    //procurar um carro com o id
+    const carros = data.carros.filter(carros => carros.id == id);
+    //devolve o carro
+    res.send(carros);
 }
 
 //cria um carro
