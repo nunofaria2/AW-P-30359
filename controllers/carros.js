@@ -53,12 +53,12 @@ exports.update = async (req, res) => {
     const carros = data.carros.find(carro => carro.id == id);
     //atualizar as caraterísticas
     carros.Marca = Marca;
-    carros.Detalhe = Detalhes;
+    carros.Detalhes = Detalhes;
     carros.Foto = Foto;
     //actualizar no ficheiro json
     fs.writeFileSync('data/local/data.json', JSON.stringify(data));
     //devolver o carro alterado
-    return res.send({id, Marca, Detalhe, Foto});
+    return res.send({id, Marca, Detalhes, Foto});
 }
 
 
