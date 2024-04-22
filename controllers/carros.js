@@ -28,10 +28,19 @@ exports.getById = async (req, res) => {
 //cria um carro
 exports.create = async (req, res) => {
     //obter o carro pelas características enviadas
-    const {id, Marca, Detalhes, Foto} = req.body;
-    //envia o carro criado
+    const {id, Marca, Detalhe, Foto} = req.body;
+     //ler o ficheiro local
+     const datajson = fs.readFileSync("data/local/data.json", "utf-8");
+     //parse do json
+     const data = JSON.parse(datajson);
+     //adicionar carro à lista
+    data.carros.push(req.body);
+    //Criar o novo ficheiro com o carro adicionado
+    fs.writeFileSync('data/local/data.json', JSON.stringify(data));
+    //devolve o novo carro
     return res.status(201).send(req.body);
 }
+
 
 //atualiza o carro
 exports.update = async (req, res) => {
