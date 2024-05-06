@@ -143,6 +143,41 @@
           document.getElementById("mdetalhe").innerHTML=detalhe;
         }
       </script>
+      
+
+      <script>
+        async function carregaModal(marca, detalhes, element) {
+          document.getElementById("exampleModalLabel").innerHTML = marca;
+          document.getElementById("modalBody").innerHTML = detalhes;
+        }
+      
+        async function atualizarCarros() {
+          const response = await fetch('http://localhost:4242/api/local/carros/');
+          const carros = await response.json();
+      
+          const carrosContainer = document.getElementById('carrosContainer');
+          carrosContainer.innerHTML = ''; // Limpa o conteúdo anterior
+      
+          carros.forEach(artigo => {
+            const cardHtml = `
+              <div class="col-md-6">
+                <div class="card">
+                  <img class="card-img-top" src="${artigo.Foto}" alt="${artigo.Marca}">
+                  <div class="card-img-overlay">
+                    <h4 class="card-title">${artigo.Marca}</h4>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" onclick="carregaModal('${artigo.Marca}', '${artigo.Detalhes}', this)">Ver detalhes</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            carrosContainer.innerHTML += cardHtml;
+          });
+        }
+      
+        // Chame a função para carregar carros quando a página carregar
+        window.onload = atualizarCarros;
+      </script>
+      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
 </body>

@@ -1,5 +1,5 @@
 const carrosRouter = require('express').Router();
-const controller = require('../controllers/carros');
+const controller = require('../../controllers/local/carros');
 
 //CRUD para o Carro
 carrosRouter.get('/', controller.getAll); //le todos
@@ -9,5 +9,3 @@ carrosRouter.put('/update', controller.update); //atualizar um carro
 carrosRouter.delete('/delete/:id', controller.delete); //apagar um crro pelo id
 
 module.exports = carrosRouter;
-
-
